@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мои соцсети и фотографии | ТРП Споттинг</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            text-align: center;
+            width: 100%;
+            max-width: 480px;
+            padding: 25px 15px;
+            box-sizing: border-box;
+        }
+        h1 {
+            font-size: 24px;
+            color: #ffffff;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+        .subtitle {
+            font-size: 14px;
+            color: #aaaaaa;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        .hardware-info {
+            background-color: #1a1a1a;
+            border: 1px dashed #333333;
+            border-radius: 10px;
+            padding: 12px;
+            font-size: 13px;
+            color: #888888;
+            margin-bottom: 25px;
+            text-align: left;
+            line-height: 1.6;
+        }
+        .hardware-info strong {
+            color: #bbbbbb;
+        }
+        
+        /* Стили галереи */
+        .gallery-title {
+            font-size: 18px;
+            color: #ffffff;
+            text-align: left;
+            margin: 25px 0 12px 5px;
+            font-weight: 600;
+        }
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+        .gallery-card {
+            display: flex;
+            flex-direction: column;
+            background-color: #1a1a1a;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #2c2c2c;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            text-decoration: none;
+            color: inherit;
+        }
+        /* Эффект наведения только для карточек-ссылок */
+        a.gallery-card {
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+        a.gallery-card:hover {
+            transform: translateY(-2px);
+            border-color: #444444;
+        }
+        .gallery-card.wide {
+            grid-column: span 2;
+        }
+        .image-container {
+            position: relative;
+            width: 100%;
+            padding-top: 75px; /* Соотношение 4:3 */
+            overflow: hidden;
+            background-color: #222;
+        }
+        .gallery-card.wide .image-container {
+            padding-top: 56.25%; /* Соотношение 16:9 */
+        }
+        .image-container img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        a.gallery-card:hover .image-container img {
+            transform: scale(1.04);
+        }
+        .photo-caption {
+            font-size: 12px;
+            color: #bbbbbb;
+            padding: 8px 10px;
+            text-align: left;
+            font-weight: 500;
+            background-color: #1a1a1a;
+            border-top: 1px solid #2c2c2c;
+        }
+
+        /* Стили кнопок */
+        .links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .link-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #1e1e1e;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 14px 20px;
+            border-radius: 14px;
+            font-size: 15px;
+            font-weight: 600;
+            border: 1px solid #2c2c2c;
+            transition: all 0.2s ease;
+        }
+        .link-btn:hover {
+            background-color: #ffffff;
+            color: #121212;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255,255,255,0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <h1>Мои соцсети и фотографии</h1>
+        <div class="subtitle">Привет! Здесь собраны мои профили и кадры общественного транспорта. Нажми на фото БКМ, МАЗ-103Т или МАЗ-105, чтобы рассмотреть их на сайтах.</div>
+
+        <div class="hardware-info">
+            📱 <strong>Видео для TikTok и YouTube:</strong> снимаю на Samsung A36<br>
+            📷 <strong>Фотографии:</strong> делаю на Samsung DV150F (4.5-22.5 mm)
+        </div>
+
+        <div class="gallery-title">Мои фотографии</div>
+        <div class="gallery">
+            
+            <a href="https://busphoto.eu/photo/944974/" class="gallery-card wide" target="_blank">
+                <div class="image-container">
+                    <img src="SAM_0582 (1).jpg" alt="Новый электробус БКМ">
+                </div>
+                <div class="photo-caption">⚡ Новый сочлененный электробус БКМ</div>
+            </a>
+
+            <a href="https://busphoto.eu/photo/930663/" class="gallery-card" target="_blank">
+                <div class="image-container">
+                    <img src="20260601_124536.jpg" alt="МАЗ-105.465 МЧС">
+                </div>
+                <div class="photo-caption">🚒 МАЗ-105.465 (Центр безопасности МЧС)</div>
+            </a>
+
+            <a href="https://transphoto.org/photo/2294841/" class="gallery-card" target="_blank">
+                <div class="image-container">
+                    <img src="20260620_173000 (1).jpg" alt="МАЗ-103Т">
+                </div>
+                <div class="photo-caption">🚎 Троллейбус МАЗ-103Т</div>
+            </a>
+
+            <div class="gallery-card">
+                <div class="image-container">
+                    <img src="SAM_0444.jpg" alt="МАЗ-303.047">
+                </div>
+                <div class="photo-caption">🚌 Белый автобус МАЗ-303.047</div>
+            </div>
+
+            <div class="gallery-card">
+                <div class="image-container">
+                    <img src="20260620_172944.jpg" alt="Троллейбус БКМ-201">
+                </div>
+                <div class="photo-caption">🚎 Раритетный троллейбус БКМ-201</div>
+            </div>
+
+        </div>
+
+        <div class="gallery-title">Ссылки на мои профили</div>
+        <div class="links">
+            <a href="https://t.me/maz_bkm_4310" class="link-btn" target="_blank">Telegram-канал</a>
+            <a href="https://youtube.com/channel/UCJndmbARTe8o4g4Y0Ls1SzQ" class="link-btn" target="_blank">YouTube</a>
+            <a href="https://www.tiktok.com/@maz_bkm_4310?_r=1&_t=ZS-92WA9uThLKa" class="link-btn" target="_blank">TikTok (1-й аккаунт)</a>
+            <a href="https://www.tiktok.com/@my4310_5082minsk?_r=1&_t=ZS-94AQc2R4pA0" class="link-btn" target="_blank">TikTok (2-й аккаунт)</a>
+            <a href="https://transphoto.org/author/36739/" class="link-btn" target="_blank">TransPhoto профиль</a>
+            <a href="https://busphoto.eu/author/13683/" class="link-btn" target="_blank">BusPhoto профиль</a>
+        </div>
+    </div>
+
+</body>
+</html>
+
