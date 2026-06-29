@@ -75,11 +75,13 @@
             text-decoration: none;
             color: inherit;
         }
-        /* Эффект наведения только для карточек-ссылок */
-        a.gallery-card {
+        
+        /* Эффект при наведении на кликабельное главное фото */
+        .clickable {
             transition: transform 0.2s ease, border-color 0.2s ease;
+            cursor: pointer;
         }
-        a.gallery-card:hover {
+        .clickable:hover {
             transform: translateY(-2px);
             border-color: #444444;
         }
@@ -94,7 +96,7 @@
             background-color: #222;
         }
         .gallery-card.wide .image-container {
-            padding-top: 56.25%; /* Соотношение 16:9 */
+            padding-top: 56.25%; /* 16:9 для главного фото */
         }
         .image-container img {
             position: absolute;
@@ -105,7 +107,7 @@
             object-fit: cover;
             transition: transform 0.3s ease;
         }
-        a.gallery-card:hover .image-container img {
+        .clickable:hover .image-container img {
             transform: scale(1.04);
         }
         .photo-caption {
@@ -151,31 +153,31 @@
     <div class="container">
         
         <h1>Мои соцсети и фотографии</h1>
-        <div class="subtitle">Привет! Здесь собраны мои профили и кадры общественного транспорта. Нажми на фото БКМ, МАЗ-103Т или МАЗ-105, чтобы рассмотреть их на сайтах.</div>
+        <div class="subtitle">Привет! Здесь собраны мои профили и кадры общественного транспорта. Обнови страницу, чтобы увидеть другое случайное фото сверху!</div>
 
         <div class="hardware-info">
             📱 <strong>Видео для TikTok и YouTube:</strong> снимаю на Samsung A36<br>
             📷 <strong>Фотографии:</strong> делаю на Samsung DV150F (4.5-22.5 mm)
         </div>
 
-        <div class="gallery-title">Мои фотографии</div>
+        <div class="gallery-title">Случайный кадр дня</div>
         <div class="gallery">
             
-            <a href="https://busphoto.eu/photo/944974/" class="gallery-card wide" target="_blank">
+            <a id="dynamic-link" class="gallery-card wide" target="_blank">
                 <div class="image-container">
-                    <img src="SAM_0582 (1).jpg" alt="Новый электробус БКМ">
+                    <img id="dynamic-img" src="" alt="Главное фото">
                 </div>
-                <div class="photo-caption">⚡ Новый сочлененный электробус БКМ</div>
+                <div id="dynamic-caption" class="photo-caption">Загрузка фотографии...</div>
             </a>
 
-            <a href="https://busphoto.eu/photo/930663/" class="gallery-card" target="_blank">
+            <a href="https://busphoto.eu/photo/930663/" class="gallery-card clickable" target="_blank">
                 <div class="image-container">
                     <img src="20260601_124536.jpg" alt="МАЗ-105.465 МЧС">
                 </div>
                 <div class="photo-caption">🚒 МАЗ-105.465 (Центр безопасности МЧС)</div>
             </a>
 
-            <a href="https://transphoto.org/photo/2294841/" class="gallery-card" target="_blank">
+            <a href="https://transphoto.org/photo/2294841/" class="gallery-card clickable" target="_blank">
                 <div class="image-container">
                     <img src="20260620_173000 (1).jpg" alt="МАЗ-103Т">
                 </div>
@@ -209,6 +211,85 @@
         </div>
     </div>
 
+    <script>
+        // Список картинок, названий и ссылок строго по твоему документу
+        const randomPhotos = [
+            {
+                src: "SAM_0577.jpg",
+                caption: "🚌 Неман 420423 (это новый автобус неман)",
+                link: "#"
+            },
+            {
+                src: "20260321_164954.jpg",
+                caption: "🚎 Маз 203T70 рестайлинг учебно-пассажирский (салон учебно-пассажирского маза, таких всего 6)",
+                link: "https://transphoto.org/photo/2262199/" 
+            },
+            {
+                src: "SAM_0498.jpg",
+                caption: "🚌 МАЗ 103.065 (это маз 103 легендарное 1 поколение)",
+                link: "#" 
+            },
+            {
+                src: "SAM_0058 (2).jpg",
+                caption: "⚡ BKM 43300D Vitovt max electro 2 (это новый электробус от бкм)",
+                link: "https://busphoto.eu/photo/890465/" 
+            },
+            {
+                src: "SAM_0203.jpg",
+                caption: "🚌 МАЗ 215.069 (это белорусский низкопольный автобус гармошка)",
+                link: "https://busphoto.eu/photo/908378/" 
+            },
+            {
+                src: "SAM_0340.jpg",
+                caption: "🚐 Неман 420234-511 (эта фотка была сделана в Гродно)",
+                link: "https://busphoto.eu/photo/927281/" 
+            },
+            {
+                src: "SAM_0293.jpg",
+                caption: "🚌 Mercedes-Benz O405 (а это старый мерседес)",
+                link: "https://busphoto.eu/photo/909824/" 
+            },
+            {
+                src: "SAM_0394 (1).jpg",
+                caption: "🚎 BKM 321/MA3 203.068",
+                link: "#" 
+            },
+            {
+                src: "SAM_0313 (1).jpg",
+                caption: "🚌 МАЗ 203.147 (единственная моя фотография Червенского автобуса)",
+                link: "https://busphoto.eu/photo/910189/" 
+            },
+            {
+                src: "SAM_0560 (1).jpg",
+                caption: "🚌 МАЗ 107.468 / МАЗ 203.147 (2 разных парка рядом и 2 разных поколения)",
+                link: "https://busphoto.eu/photo/942491/" 
+            }
+        ];
+
+        // Логика выбора случайного кадра
+        window.addEventListener('DOMContentLoaded', () => {
+            const randomIndex = Math.floor(Math.random() * randomPhotos.length);
+            const item = randomPhotos[randomIndex];
+
+            const img = document.getElementById('dynamic-img');
+            const caption = document.getElementById('dynamic-caption');
+            const link = document.getElementById('dynamic-link');
+
+            // Подставляем случайную фотографию и подпись
+            img.src = item.src;
+            img.alt = item.caption;
+            caption.textContent = item.caption;
+
+            // Если ты добавил ссылку в поле link, то картинка перенаправит на сайт
+            if (item.link && item.link.trim() !== "") {
+                link.href = item.link;
+                link.classList.add('clickable');
+            } else {
+                // Если ссылки нет, картинку можно просто посмотреть без клика
+                link.removeAttribute('href');
+                link.classList.remove('clickable');
+            }
+        });
+    </script>
 </body>
 </html>
-
