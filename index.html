@@ -76,7 +76,7 @@
             color: inherit;
         }
         
-        /* Эффект при наведении на кликабельное главное фото */
+        /* Эффект при наведении на кликабельное фото */
         .clickable {
             transition: transform 0.2s ease, border-color 0.2s ease;
             cursor: pointer;
@@ -146,6 +146,17 @@
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(255,255,255,0.1);
         }
+
+        /* Свойства для неактивной кнопки (до 13.09.2026) */
+        .link-btn.disabled {
+            background-color: #161616;
+            color: #666666;
+            border-color: #222222;
+            cursor: not-allowed;
+            pointer-events: none; /* Запрещает нажатие */
+            box-shadow: none;
+            transform: none;
+        }
     </style>
 </head>
 <body>
@@ -208,65 +219,85 @@
             <a href="https://www.tiktok.com/@my4310_5082minsk?_r=1&_t=ZS-94AQc2R4pA0" class="link-btn" target="_blank">TikTok (2-й аккаунт)</a>
             <a href="https://transphoto.org/author/36739/" class="link-btn" target="_blank">TransPhoto профиль</a>
             <a href="https://busphoto.eu/author/13683/" class="link-btn" target="_blank">BusPhoto профиль</a>
+            
+            <a id="fotobus-btn" class="link-btn" target="_blank">Fotobus профиль</a>
         </div>
     </div>
 
     <script>
-        // Список картинок, названий и ссылок строго по твоему документу
+        // 1. АВТО-АКТИВАЦИЯ КНОПКИ ФОТОБУС ПО ДАТЕ
+        window.addEventListener('DOMContentLoaded', () => {
+            const fotobusBtn = document.getElementById('fotobus-btn');
+            const targetDate = new Date('2026-09-13T00:00:00'); // Дата разблокировки
+            const currentDate = new Date();
+
+            if (currentDate >= targetDate) {
+                // После 13.09.2026 — кнопка активна
+                fotobusBtn.href = "https://fotobus.msk.ru/author/37580/";
+                fotobusBtn.textContent = "Fotobus профиль";
+                fotobusBtn.classList.remove('disabled');
+            } else {
+                // До 13.09.2026 — кнопка заблокирована
+                fotobusBtn.removeAttribute('href');
+                fotobusBtn.textContent = "Fotobus (временно не работает до 13.09.2026)";
+                fotobusBtn.classList.add('disabled');
+            }
+        });
+
+        // 2. СМЕНА ГЛАВНОГО ФОТО
         const randomPhotos = [
             {
-                src: "SAM_0577.jpg",
+                src: "SAM_0576.jpg",
                 caption: "🚌 Неман 420423 (это новый автобус неман)",
-                link: "#"
+                link: ""
             },
             {
-                src: "20260321_164954.jpg",
-                caption: "🚎 Маз 203T70 рестайлинг учебно-пассажирский (салон учебно-пассажирского маза, таких всего 6)",
-                link: "https://transphoto.org/photo/2262199/" 
+                src: "20280021_164954.jpg",
+                caption: "🚎 Маз 203х70 рестайлинг учебно-пассажирский (салон учебно-пассажирского маза, таких всего 6)",
+                link: "https://transphoto.org/photo/2221102/"
             },
             {
-                src: "SAM_0498.jpg",
+                src: "SAM_0408.jpg",
                 caption: "🚌 МАЗ 103.065 (это маз 103 легендарное 1 поколение)",
-                link: "#" 
+                link: ""
             },
             {
                 src: "SAM_0058 (2).jpg",
-                caption: "⚡ BKM 43300D Vitovt max electro 2 (это новый электробус от бкм)",
-                link: "https://busphoto.eu/photo/890465/" 
+                caption: "⚡ BKM 433000 Vitovt max electro (это новый электробус бкма)",
+                link: "https://transphoto.org/photo/2219416/"
             },
             {
                 src: "SAM_0203.jpg",
                 caption: "🚌 МАЗ 215.069 (это белорусский низкопольный автобус гармошка)",
-                link: "https://busphoto.eu/photo/908378/" 
+                link: "https://busphoto.eu/photo/955317/"
             },
             {
-                src: "SAM_0340.jpg",
+                src: "SAM_0430.jpg",
                 caption: "🚐 Неман 420234-511 (эта фотка была сделана в Гродно)",
-                link: "https://busphoto.eu/photo/927281/" 
+                link: "https://transphoto.org/photo/2272312/"
             },
             {
                 src: "SAM_0293.jpg",
                 caption: "🚌 Mercedes-Benz O405 (а это старый мерседес)",
-                link: "https://busphoto.eu/photo/909824/" 
+                link: ""
             },
             {
                 src: "SAM_0394 (1).jpg",
-                caption: "🚎 BKM 321/MA3 203.068",
-                link: "#" 
+                caption: "🚎 BKM 321/МАЗ 203.068",
+                link: ""
             },
             {
                 src: "SAM_0313 (1).jpg",
                 caption: "🚌 МАЗ 203.147 (единственная моя фотография Червенского автобуса)",
-                link: "https://busphoto.eu/photo/910189/" 
+                link: ""
             },
             {
-                src: "SAM_0560 (1).jpg",
+                src: "SAM_0580 (1).jpg",
                 caption: "🚌 МАЗ 107.468 / МАЗ 203.147 (2 разных парка рядом и 2 разных поколения)",
-                link: "https://busphoto.eu/photo/942491/" 
+                link: ""
             }
         ];
 
-        // Логика выбора случайного кадра
         window.addEventListener('DOMContentLoaded', () => {
             const randomIndex = Math.floor(Math.random() * randomPhotos.length);
             const item = randomPhotos[randomIndex];
@@ -275,17 +306,14 @@
             const caption = document.getElementById('dynamic-caption');
             const link = document.getElementById('dynamic-link');
 
-            // Подставляем случайную фотографию и подпись
             img.src = item.src;
             img.alt = item.caption;
             caption.textContent = item.caption;
 
-            // Если ты добавил ссылку в поле link, то картинка перенаправит на сайт
             if (item.link && item.link.trim() !== "") {
                 link.href = item.link;
                 link.classList.add('clickable');
             } else {
-                // Если ссылки нет, картинку можно просто посмотреть без клика
                 link.removeAttribute('href');
                 link.classList.remove('clickable');
             }
@@ -293,3 +321,4 @@
     </script>
 </body>
 </html>
+>
